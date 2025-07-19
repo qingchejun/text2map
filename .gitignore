@@ -1,0 +1,13 @@
+# 虚拟环境
+venv/
+_archive_flask_app/
+
+# 环境变量文件 (包含API Key)
+.env
+
+# Python 缓存文件
+__pycache__/
+*.pyc
+
+# 系统文件
+.DS_Store
