@@ -15,6 +15,10 @@ st.markdown(
     h1 {
         color: #000000 !important;
     }
+    /* 新增规则：隐藏Streamlit为标题自动生成的锚链接图标 */
+    h1 a {
+        display: none !important;
+    }
     /* 将背景强制设置为白色 */
     body {
         background-color: #ffffff;
