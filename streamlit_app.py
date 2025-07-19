@@ -6,28 +6,42 @@ from streamlit_markmap import markmap
 st.set_page_config(page_title="文本转思维导图", page_icon="🧠")
 
 # 设置页面样式为白色背景
-st.markdown("""
-<style>
-    .stApp {
-        background-color: white;
+st.markdown(
+    """
+    <style>
+    body {
+        color: #000 !important;
+        background-color: #fff !important;
     }
-    .stTextArea > div > div > textarea {
-        background-color: white;
-        color: black;
+    .stTextInput>label,
+    .stTextArea>label,
+    .stButton>button,
+    .stCheckbox>label,
+    .stRadio>label,
+    .stSelectbox>label,
+    .stMultiSelect>label,
+    .stSlider>label,
+    .stNumberInput>label,
+    .stDateInput>label,
+    .stTimeInput>label,
+    .stFileUploader>label,
+    .stColorPicker>label,
+    div#root > div:nth-child(1) > div > div > div > section > div > div:nth-child(1) > div > h1,
+    div#root > div:nth-child(1) > div > div > div > section > div > div:nth-child(1) > div > h2,
+    div#root > div:nth-child(1) > div > div > div > section > div > div:nth-child(1) > div > h3,
+    div#root > div:nth-child(1) > div > div > div > section > div > div:nth-child(1) > div > h4,
+    div#root > div:nth-child(1) > div > div > div > section > div > div:nth-child(1) > div > h5,
+    div#root > div:nth-child(1) > div > div > div > section > div > div:nth-child(1) > div > h6,
+    div#root > div:nth-child(1) > div > div > div > section > div > div:nth-child(2) > div > div > div > div > div > textarea {
+        color: #000 !important;
     }
-    .stMarkdown {
-        color: black;
+    .markmap-container {
+        background-color: #fff !important;
     }
-    .stButton > button {
-        background-color: #f0f2f6;
-        color: black;
-    }
-    div[data-testid="metric-container"] {
-        background-color: white;
-        border: 1px solid #cccccc;
-    }
-</style>
-""", unsafe_allow_html=True)
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
 
 # 显示主标题
 st.title("文本转思维导图")
