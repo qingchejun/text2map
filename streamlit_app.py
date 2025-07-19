@@ -2,6 +2,9 @@ import streamlit as st
 from main import generate_mindmap_data
 from streamlit_markmap import markmap
 from datetime import datetime
+import PyPDF2
+from docx import Document
+import io
 
 # 设置页面配置
 st.set_page_config(page_title="文本转思维导图", page_icon="🧠")
@@ -42,16 +45,48 @@ text_input = st.text_area(
 # 创建文件上传组件
 uploaded_file = st.file_uploader(
     label="或者，直接上传文档文件：",
-    type=['txt', 'md']
+    type=['txt', 'md', 'docx', 'pdf']
 )
 
 # 创建生成按钮
 generate_button = st.button("生成思维导图")
 
+def extract_text_from_file(uploaded_file):
+    """从上传的文件中提取文本内容"""
+    file_type = uploaded_file.name.split('.')[-1].lower()
+    
+    try:
+        if file_type in ['txt', 'md']:
+            return uploaded_file.getvalue().decode("utf-8")
+        
+        elif file_type == 'docx':
+            doc = Document(io.BytesIO(uploaded_file.getvalue()))
+            text = []
+            for paragraph in doc.paragraphs:
+                text.append(paragraph.text)
+            return '\n'.join(text)
+        
+        elif file_type == 'pdf':
+            pdf_reader = PyPDF2.PdfReader(io.BytesIO(uploaded_file.getvalue()))
+            text = []
+            for page in pdf_reader.pages:
+                text.append(page.extract_text())
+            return '\n'.join(text)
+        
+        else:
+            return None
+            
+    except Exception as e:
+        st.error(f"读取文件时出错：{str(e)}")
+        return None
+
 if generate_button:
     # 整合输入逻辑：文件优先
     if uploaded_file is not None:
-        final_text = uploaded_file.getvalue().decode("utf-8")
+        final_text = extract_text_from_file(uploaded_file)
+        if final_text is None:
+            st.error("文件读取失败，请检查文件格式是否正确！")
+            final_text = ""
     else:
         final_text = text_input
     
