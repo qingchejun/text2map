@@ -5,6 +5,30 @@ from streamlit_markmap import markmap
 # 设置页面配置
 st.set_page_config(page_title="文本转思维导图", page_icon="🧠")
 
+# 设置页面样式为白色背景
+st.markdown("""
+<style>
+    .stApp {
+        background-color: white;
+    }
+    .stTextArea > div > div > textarea {
+        background-color: white;
+        color: black;
+    }
+    .stMarkdown {
+        color: black;
+    }
+    .stButton > button {
+        background-color: #f0f2f6;
+        color: black;
+    }
+    div[data-testid="metric-container"] {
+        background-color: white;
+        border: 1px solid #cccccc;
+    }
+</style>
+""", unsafe_allow_html=True)
+
 # 显示主标题
 st.title("文本转思维导图")
 
@@ -26,7 +50,7 @@ if generate_button:
             result_markdown = generate_mindmap_data(text_input)
             
             if result_markdown:
-                markmap(result_markdown, height=500)
+                markmap(result_markdown, height=500, options={'theme': 'default', 'backgroundColor': '#ffffff', 'color': '#000000', 'font': 'Arial, sans-serif'})
                 
                 with st.expander("查看/复制 Markdown 源码"):
                     st.code(result_markdown, language='markdown')
