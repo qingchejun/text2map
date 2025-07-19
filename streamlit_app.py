@@ -1,6 +1,7 @@
 import streamlit as st
 from main import generate_mindmap_data
 from streamlit_markmap import markmap
+from datetime import datetime
 
 # 设置页面配置
 st.set_page_config(page_title="文本转思维导图", page_icon="🧠")
@@ -50,6 +51,17 @@ if generate_button:
             
             if result_markdown:
                 markmap(result_markdown, height=500)
+                
+                # 生成带时间戳的文件名
+                timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+                filename = f"mindmap_{timestamp}.md"
+                
+                st.download_button(
+                    label="下载为 Markdown 文件 (.md)",
+                    data=result_markdown,
+                    file_name=filename,
+                    mime="text/markdown",
+                )
                 
                 with st.expander("查看/复制 Markdown 源码"):
                     st.code(result_markdown, language='markdown')
