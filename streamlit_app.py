@@ -5,6 +5,7 @@ from datetime import datetime
 import PyPDF2
 from docx import Document
 import io
+import srt
 
 # 设置页面配置
 st.set_page_config(page_title="文本转思维导图", page_icon="🧠")
@@ -45,11 +46,23 @@ text_input = st.text_area(
 # 创建文件上传组件
 uploaded_file = st.file_uploader(
     label="或者，直接上传文档文件：",
-    type=['txt', 'md', 'docx', 'pdf']
+    type=['txt', 'md', 'docx', 'pdf', 'srt']
 )
 
 # 创建生成按钮
 generate_button = st.button("生成思维导图")
+
+def parse_srt_content(srt_string):
+    """解析SRT字幕文件内容，提取纯文本"""
+    try:
+        subtitles = srt.parse(srt_string)
+        text_content = []
+        for subtitle in subtitles:
+            text_content.append(subtitle.content)
+        return '\n'.join(text_content)
+    except Exception as e:
+        st.error(f"解析SRT文件时出错：{str(e)}")
+        return None
 
 def extract_text_from_file(uploaded_file):
     """从上传的文件中提取文本内容"""
@@ -58,6 +71,10 @@ def extract_text_from_file(uploaded_file):
     try:
         if file_type in ['txt', 'md']:
             return uploaded_file.getvalue().decode("utf-8")
+        
+        elif file_type == 'srt':
+            srt_text = uploaded_file.getvalue().decode("utf-8")
+            return parse_srt_content(srt_text)
         
         elif file_type == 'docx':
             doc = Document(io.BytesIO(uploaded_file.getvalue()))
