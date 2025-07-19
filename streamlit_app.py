@@ -39,15 +39,27 @@ text_input = st.text_area(
     placeholder="请在此处粘贴或输入您要转换的文本内容..."
 )
 
+# 创建文件上传组件
+uploaded_file = st.file_uploader(
+    label="或者，直接上传文档文件：",
+    type=['txt', 'md']
+)
+
 # 创建生成按钮
 generate_button = st.button("生成思维导图")
 
 if generate_button:
-    if not text_input.strip():
-        st.warning("请输入一些文本内容！")
+    # 整合输入逻辑：文件优先
+    if uploaded_file is not None:
+        final_text = uploaded_file.getvalue().decode("utf-8")
+    else:
+        final_text = text_input
+    
+    if not final_text.strip():
+        st.warning("请输入一些文本内容或上传文件！")
     else:
         with st.spinner('🧠 正在为您生成思维导图，请稍候...'):
-            result_markdown = generate_mindmap_data(text_input)
+            result_markdown = generate_mindmap_data(final_text)
             
             if result_markdown:
                 markmap(result_markdown, height=500)
