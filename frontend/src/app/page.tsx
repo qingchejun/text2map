@@ -66,13 +66,15 @@ export default function HomePage() {
     
     try {
       let response;
+      // 使用环境变量或默认值
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://text2map-backend.onrender.com';
       
       if (selectedFile) {
         // 如果有选择文件，使用文件上传API
         const formData = new FormData();
         formData.append('file', selectedFile);
         
-        response = await fetch('http://localhost:8000/generate-from-file', {
+        response = await fetch(`${apiUrl}/generate-from-file`, {
           method: 'POST',
           body: formData, // 不需要手动设置Content-Type，浏览器会自动处理
         });
@@ -82,7 +84,7 @@ export default function HomePage() {
           throw new Error('请输入文本内容或选择文件');
         }
         
-        response = await fetch('http://localhost:8000/generate', {
+        response = await fetch(`${apiUrl}/generate`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ text: inputText }),
