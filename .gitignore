@@ -5,6 +5,9 @@ _archive_flask_app/
 # 环境变量文件 (包含API Key)
 .env
 
+# Claude 上下文文件
+CLAUDE.md
+
 # Python 缓存文件
 __pycache__/
 *.pyc

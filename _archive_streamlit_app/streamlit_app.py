@@ -1,5 +1,5 @@
 import streamlit as st
-from main import generate_mindmap_data
+from backend.main import generate_mindmap_data
 from streamlit_markmap import markmap
 from datetime import datetime
 import PyPDF2
