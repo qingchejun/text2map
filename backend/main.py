@@ -31,9 +31,13 @@ app = FastAPI(
 )
 
 # 添加CORS中间件
+origins = [
+    "http://localhost:3000",
+    "https://text2map-frontend.onrender.com",
+]
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # 允许前端域名
+    allow_origins=origins,  # 允许前端域名
     allow_credentials=True,
     allow_methods=["*"],  # 允许所有HTTP方法
     allow_headers=["*"],  # 允许所有请求头
