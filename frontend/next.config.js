@@ -1,22 +1,20 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    // App Router 配置
-    experimental: {
-      appDir: true,
-    },
+    // 暂时禁用字体优化避免错误
+    optimizeFonts: false,
     
-    // 生产环境优化
+    // 基础配置
     compress: true,
     poweredByHeader: false,
     
-    // 确保静态资源正确处理
-    assetPrefix: '',
-    basePath: '',
-    trailingSlash: false,
-    
     // 图片优化
     images: {
-      unoptimized: true, // Render 免费版建议设置
+      unoptimized: true,
+    },
+    
+    // 试验性功能
+    experimental: {
+      optimizePackageImports: ['lucide-react']
     },
   }
   
