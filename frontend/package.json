@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "echo '=== 启动 Next.js SSR 服务 ===' && pwd && ls -al && next start",
     "lint": "next lint"
   },
   "engines": {
