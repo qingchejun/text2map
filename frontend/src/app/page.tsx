@@ -66,8 +66,8 @@ export default function HomePage() {
     
     try {
       let response;
-      // 使用环境变量或默认值
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://text2map-backend.onrender.com';
+      // 使用本地后端作为开发默认值
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
       
       if (selectedFile) {
         // 如果有选择文件，使用文件上传API
