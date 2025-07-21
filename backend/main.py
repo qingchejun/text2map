@@ -33,7 +33,7 @@ app = FastAPI(
 # 添加CORS中间件
 origins = [
     "http://localhost:3000",
-    "https://text2map-frontend.onrender.com",
+    "[https://text2map-frontend.onrender.com](https://text2map-frontend.onrender.com)",
 ]
 app.add_middleware(
     CORSMiddleware,
